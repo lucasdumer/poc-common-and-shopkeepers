@@ -13,7 +13,7 @@ class UserCreateRequest extends FormRequest
             'document' => ['required', 'max:14'],
             'email' => ['required', 'max:255'],
             'password' => ['required', 'max:255'],
-            'balance' => ['required', 'integer']
+            'balance' => ['required', 'numeric']
         ];
     }
 }
