@@ -125,7 +125,6 @@ class User
             'name' => $this->name,
             'document' => $this->document->getValue(),
             'email' => $this->email,
-            'password' => $this->password,
             'balance' => $this->balance
         ];
     }
