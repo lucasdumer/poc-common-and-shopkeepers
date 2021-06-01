@@ -6,12 +6,26 @@ use App\Domain\Marketplace\User\User;
 
 class Transaction
 {
+    private int $id;
+
     public function __construct(
         private User $payer,
         private User $payee,
         private float $value
     ) {
         $this->validate();
+        $this->payer->removeBalance($this->value);
+        $this->payee->addBalance($this->value);
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getPayer(): User
