@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Interfaces\Http\Controllers\RoomController;
+use App\Interfaces\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,8 +14,8 @@ use App\Interfaces\Http\Controllers\RoomController;
 |
 */
 
-Route::post('rooms', [RoomController::class, 'create']);
-Route::get('rooms/{id}', [RoomController::class, 'find']);
-Route::put('rooms/{id}', [RoomController::class, 'update']);
-Route::delete('rooms/{id}', [RoomController::class, 'delete']);
-Route::get('rooms', [RoomController::class, 'list']);
+Route::post('users', [UserController::class, 'create']);
+Route::get('users/{id}', [UserController::class, 'find']);
+Route::put('users/{id}', [UserController::class, 'update']);
+Route::delete('users/{id}', [UserController::class, 'delete']);
+Route::get('users', [UserController::class, 'list']);
