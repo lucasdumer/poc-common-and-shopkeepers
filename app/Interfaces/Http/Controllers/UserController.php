@@ -50,8 +50,7 @@ class UserController extends Controller
                 $request->name,
                 $request->document,
                 $request->email,
-                $request->password,
-                $request->balance,
+                $request->password
             );
             return $this->success($this->userService->update($userUpdateCommand)->toArray());
         } catch(\Exception $e) {

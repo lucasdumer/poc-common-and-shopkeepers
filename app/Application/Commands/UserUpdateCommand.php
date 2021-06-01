@@ -11,8 +11,7 @@ class UserUpdateCommand implements IUserUpdateCommand
         private string $name,
         private string $document,
         private string $email,
-        private string $password,
-        private string $balance,
+        private string $password
     ) {}
 
     public function getId(): int
@@ -38,10 +37,5 @@ class UserUpdateCommand implements IUserUpdateCommand
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    public function getBalance(): string
-    {
-        return $this->balance;
     }
 }
