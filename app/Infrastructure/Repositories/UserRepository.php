@@ -55,7 +55,7 @@ class UserRepository implements IUserRepository
             UserModel::where('id', $user->getId())
                 ->update([
                     'name' => $user->getName(),
-                    'document' => $user->getDocument(),
+                    'document' => $user->getDocument()->getValue(),
                     'email' => $user->getEmail(),
                     'password' => Hash::make($user->getPassword()),
                     'balance' => $user->getBalance()
@@ -106,7 +106,6 @@ class UserRepository implements IUserRepository
                 'name' => $userModel->name,
                 'document' => $userModel->document,
                 'email' => $userModel->email,
-                'password' => $userModel->password,
                 'balance' => $userModel->balance
             ];
         }, $users);
