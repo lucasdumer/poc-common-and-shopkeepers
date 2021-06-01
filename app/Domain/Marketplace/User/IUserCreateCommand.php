@@ -8,5 +8,5 @@ interface IUserCreateCommand
     public function getDocument(): string;
     public function getEmail(): string;
     public function getPassword(): string;
-    public function getBalance(): double;
+    public function getBalance(): float;
 }

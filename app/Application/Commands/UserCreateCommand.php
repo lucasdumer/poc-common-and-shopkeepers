@@ -34,7 +34,7 @@ class UserCreateCommand implements IUserCreateCommand
         return $this->password;
     }
 
-    public function getBalance(): string
+    public function getBalance(): float
     {
         return $this->balance;
     }
