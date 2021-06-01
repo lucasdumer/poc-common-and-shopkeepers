@@ -76,25 +76,45 @@ class UserRepository implements IUserRepository
         }
     }
 
+    private function get(
+        string $name = null,
+        string $document = null,
+        string $email = null
+    ): array {
+        $table = DB::table('users');
+        if (!empty($name)) {
+            $table->where('name', '=', $name);
+        }
+        if (!empty($document)) {
+            $table->where('document', '=', $document);
+        }
+        if (!empty($email)) {
+            $table->where('email', '=', $email);
+        }
+        return $table->get()->toArray();
+    }
+
     public function list(
         string $name = null,
         string $document = null,
         string $email = null
     ): array {
         try {
-            $table = DB::table('users');
-            if (!empty($name)) {
-                $table->where('name', '=', $name);
-            }
-            if (!empty($document)) {
-                $table->where('document', '=', $document);
-            }
-            if (!empty($email)) {
-                $table->where('email', '=', $email);
-            }
-            return $this->toArray($table->get()->toArray());
+            return $this->toArray($this->get($name, $document, $email));
         } catch(\Exception $e) {
             throw new \Exception("Database error on list user. ".$e->getMessage());
+        }
+    }
+
+    public function load(
+        string $name = null,
+        string $document = null,
+        string $email = null
+    ): array {
+        try {
+            return $this->toArrayObj($this->get($name, $document, $email));
+        } catch(\Exception $e) {
+            throw new \Exception("Database error on load user. ".$e->getMessage());
         }
     }
 
@@ -108,6 +128,21 @@ class UserRepository implements IUserRepository
                 'email' => $userModel->email,
                 'balance' => $userModel->balance
             ];
+        }, $users);
+    }
+
+    private function toArrayObj($users)
+    {
+        return array_map(function ($userModel) {
+            $user = new User(
+                $userModel->name,
+                new Document($userModel->document),
+                $userModel->email,
+                $userModel->password,
+                $userModel->balance
+            );
+            $user->setId($userModel->id);
+            return $user;
         }, $users);
     }
 }

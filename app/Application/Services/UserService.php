@@ -15,6 +15,14 @@ class UserService implements IUserService
         private UserRepository $userRepository
     ) {}
 
+    private function validate(User $user, string $document, string $email): void
+    {
+        $users = $this->userRepository->load(document: $document);
+        $user->validateSingleDocument($users);
+        $users = $this->userRepository->load(email: $email);
+        $user->validateSingleEmail($users);
+    }
+
     public function create(IUserCreateCommand $userCreateCommand): User
     {
         try {
@@ -25,6 +33,7 @@ class UserService implements IUserService
                 $userCreateCommand->getPassword(),
                 $userCreateCommand->getBalance(),
             );
+            $this->validate($user, $userCreateCommand->getDocument(), $userCreateCommand->getEmail());
             return $this->userRepository->create($user);
         } catch(\Exception $e) {
             throw new \Exception("Service error on creating user. ".$e->getMessage());
@@ -51,6 +60,7 @@ class UserService implements IUserService
                 $userUpdateCommand->getEmail(),
                 $userUpdateCommand->getPassword()
             );
+            $this->validate($user, $userUpdateCommand->getDocument(), $userUpdateCommand->getEmail());
             return $this->userRepository->update($user);
         } catch(\Exception $e) {
             throw new \Exception("Service error on update user. ".$e->getMessage());

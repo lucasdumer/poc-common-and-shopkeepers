@@ -128,4 +128,36 @@ class User
             'balance' => $this->balance
         ];
     }
+
+    public function validateSingleDocument(array $users): void
+    {
+        foreach ($users as $user) {
+            if (
+                (empty($this->id) && $this->document->getValue() == $user->getDocument()->getValue()) ||
+                (
+                    !empty($this->id) &&
+                    $this->id != $user->getId() &&
+                    $this->document->getValue() == $user->getDocument()->getValue()
+                )
+            ) {
+                throw new \Exception("This document already exists.");
+            }
+        }
+    }
+
+    public function validateSingleEmail(array $users): void
+    {
+        foreach ($users as $user) {
+            if (
+                (empty($this->id) && $this->document->getValue() == $user->getDocument()->getValue()) ||
+                (
+                    !empty($this->id) &&
+                    $this->id != $user->getId() &&
+                    $this->email == $user->email
+                )
+            ) {
+                throw new \Exception("This email already exists.");
+            }
+        }
+    }
 }
