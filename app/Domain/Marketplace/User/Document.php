@@ -26,4 +26,9 @@ class Document
             throw new \Exception("Document invalid.");
         }
     }
+
+    public function itsAShopkeepersDocument(): bool
+    {
+        return strlen($this->value) == 14;
+    }
 }

@@ -160,4 +160,9 @@ class User
             }
         }
     }
+
+    public function isAShopkeeper(): bool
+    {
+        return $this->document->itsAShopkeepersDocument();
+    }
 }
