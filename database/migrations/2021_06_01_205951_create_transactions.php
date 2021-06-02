@@ -15,11 +15,11 @@ class CreateTransactions extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('peyer_id');
-            $table->unsignedBigInteger('peyee_id');
+            $table->unsignedBigInteger('payer_id');
+            $table->unsignedBigInteger('payee_id');
             $table->decimal('value');
-            $table->foreign('peyer_id')->references('id')->on('users');
-            $table->foreign('peyee_id')->references('id')->on('users');
+            $table->foreign('payer_id')->references('id')->on('users');
+            $table->foreign('payee_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
