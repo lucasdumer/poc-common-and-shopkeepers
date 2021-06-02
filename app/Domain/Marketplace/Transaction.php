@@ -57,4 +57,14 @@ class Transaction
             throw new \Exception("It is not possible to do a zeroed transaction.");
         }
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'payerId' => $this->payer->getId(),
+            'payeeId' => $this->payee->getId(),
+            'value' => $this->value,
+        ];
+    }
 }
