@@ -149,7 +149,7 @@ class User
     {
         foreach ($users as $user) {
             if (
-                (empty($this->id) && $this->document->getValue() == $user->getDocument()->getValue()) ||
+                (empty($this->id) && $this->email == $user->getEmail()) ||
                 (
                     !empty($this->id) &&
                     $this->id != $user->getId() &&
