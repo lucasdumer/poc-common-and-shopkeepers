@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Interfaces\Http\Controllers\UserController;
+use App\Interfaces\Http\Controllers\TransactionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,3 +20,6 @@ Route::get('users/{id}', [UserController::class, 'find']);
 Route::put('users/{id}', [UserController::class, 'update']);
 Route::delete('users/{id}', [UserController::class, 'delete']);
 Route::get('users', [UserController::class, 'list']);
+
+Route::post('transactions', [TransactionController::class, 'create']);
+Route::get('transactions', [TransactionController::class, 'list']);
