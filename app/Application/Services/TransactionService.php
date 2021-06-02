@@ -6,6 +6,7 @@ use App\Domain\Marketplace\ITransactionCreateCommand;
 use App\Domain\Marketplace\ITransactionService;
 use App\Domain\Marketplace\Transaction;
 use App\Infrastructure\Clients\ExternalServerClient;
+use App\Infrastructure\Clients\NotificationClient;
 use App\Infrastructure\Repositories\TransactionRepository;
 use App\Infrastructure\Repositories\UserRepository;
 
@@ -14,7 +15,8 @@ class TransactionService implements ITransactionService
     public function __construct(
         private TransactionRepository $transactionRepository,
         private UserRepository $userRepository,
-        private ExternalServerClient $externalServerClient
+        private ExternalServerClient $externalServerClient,
+        private NotificationClient $notificationClient
     ) {}
 
     public function create(ITransactionCreateCommand $transactionCreateCommand): Transaction
@@ -26,7 +28,10 @@ class TransactionService implements ITransactionService
             if (!$this->externalServerClient->getAuthorizationStatus()) {
                 throw new \Exception("Not allowed to transact.");
             }
-            return $this->transactionRepository->create($transaction);
+
+            $transaction = $this->transactionRepository->create($transaction);
+            $this->notificationClient->pub($transaction);
+            return $transaction;
         } catch(\Exception $e) {
             throw new \Exception("Service error on create transaction. ".$e->getMessage());
         }
