@@ -64,17 +64,14 @@ class UserTest extends TestCase
 
     public function test_balance_negative()
     {
-        try {
-            $user = new User(
-                'name',
-                new Document('95478456245'),
-                'teste@teste.com',
-                '123456',
-                1000
-            );
-            $user->removeBalance(1001);
-        } catch(\Exception $e) {
-            $this->assertEquals($e->getMessage(), "Balance less than zero.");
-        }
+        $user = new User(
+            'name',
+            new Document('95478456245'),
+            'teste@teste.com',
+            '123456',
+            1000
+        );
+        $this->expectExceptionMessage("Balance less than zero.");
+        $user->removeBalance(1001);
     }
 }

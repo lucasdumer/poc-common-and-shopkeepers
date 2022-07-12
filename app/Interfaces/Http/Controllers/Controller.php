@@ -19,13 +19,4 @@ class Controller extends BaseController
             'data' => $data
         ], $code);
     }
-
-    protected function error(\Exception $e)
-    {
-        return response()->json([
-            'status'=>'error',
-            'message' => $e->getMessage(),
-            'data' => null
-        ], $e->getCode() ? $e->getCode() : 500);
-    }
 }

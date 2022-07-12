@@ -65,13 +65,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof \TypeError || $exception instanceof FatalError || $exception instanceof Error) {
-            return response()->json([
-                'status'=> 'error',
-                'message' => $exception->getMessage(),
-                'data' => null
-            ], 500);
-        }
         if ($exception instanceof NotFoundHttpException) {
             return response()->json([
                 'status'=> 'error',
@@ -86,7 +79,13 @@ class Handler extends ExceptionHandler
                 'data' => null
             ], 405);
         }
-
+        if ($exception instanceof Throwable) {
+            return response()->json([
+                'status'=> 'error',
+                'message' => $exception->getMessage(),
+                'data' => null
+            ], 500);
+        }
         return parent::render($request, $exception);
     }
 }

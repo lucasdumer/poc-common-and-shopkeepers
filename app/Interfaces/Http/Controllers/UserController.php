@@ -19,60 +19,40 @@ class UserController extends Controller
 
     public function create(UserCreateRequest $request)
     {
-        try {
-            $userCreateCommand = new UserCreateCommand(
-                $request->name,
-                $request->document,
-                $request->email,
-                $request->password,
-                $request->balance,
-            );
-            return $this->success($this->userService->create($userCreateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $userCreateCommand = new UserCreateCommand(
+            $request->name,
+            $request->document,
+            $request->email,
+            $request->password,
+            $request->balance,
+        );
+        return $this->success($this->userService->create($userCreateCommand)->toArray());
     }
 
     public function find(FindRequest $request)
     {
-        try {
-            return $this->success($this->userService->find($request->id)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->userService->find($request->id)->toArray());
     }
 
     public function update(UserUpdateRequest $request)
     {
-        try {
-            $userUpdateCommand = new UserUpdateCommand(
-                $request->id,
-                $request->name,
-                $request->document,
-                $request->email,
-                $request->password
-            );
-            return $this->success($this->userService->update($userUpdateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $userUpdateCommand = new UserUpdateCommand(
+            $request->id,
+            $request->name,
+            $request->document,
+            $request->email,
+            $request->password
+        );
+        return $this->success($this->userService->update($userUpdateCommand)->toArray());
     }
 
     public function delete(DeleteRequest $request)
     {
-        try {
-            return $this->success($this->userService->delete($request->id));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->userService->delete($request->id));
     }
 
     public function list(UserListRequest $request)
     {
-        try {
-            return $this->success($this->userService->list());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->userService->list());
     }
 }

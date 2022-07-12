@@ -15,24 +15,16 @@ class TransactionController extends Controller
 
     public function create(TransactionCreateRequest $request)
     {
-        try {
-            $transactionCreateCommand = new TransactionCreateCommand(
-                $request->payerId,
-                $request->payeeId,
-                $request->value
-            );
-            return $this->success($this->transactionService->create($transactionCreateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $transactionCreateCommand = new TransactionCreateCommand(
+            $request->payerId,
+            $request->payeeId,
+            $request->value
+        );
+        return $this->success($this->transactionService->create($transactionCreateCommand)->toArray());
     }
 
     public function list(TransactionListRequest $request)
     {
-        try {
-            return $this->success($this->transactionService->list($request->payerId, $request->payeeId));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->transactionService->list($request->payerId, $request->payeeId));
     }
 }
